@@ -1,0 +1,21 @@
+<aside class="menu">
+    <p class="menu-label">
+        General
+    </p>
+    <ul class="menu-list">
+        <li><a href="{{ url_for('profile.profile') }}">Dashboard</a></li>
+    </ul>
+    <p class="menu-label">
+        Cities
+    </p>
+    <ul class="menu-list">
+        <li><a href="{{ url_for('profile.favorite') }}">Favorite</a></li>
+        <li><a href="{{ url_for('profile.visited') }}">Visited</a></li>
+    </ul>
+    <p class="menu-label">
+        Statistics
+    </p>
+    <ul class="menu-list">
+        <li><a href="{{ url_for('profile.statistics') }}">Statistics</a></li>
+    </ul>
+</aside>

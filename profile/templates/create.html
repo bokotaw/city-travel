@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="columns">
+        <div class="column is-2">
+            {% block sidemenu %}
+                {% include 'menu.html' %}
+            {% endblock %}
+        </div>
+        <div class="column is-10">
+            <h1 class="title is-1" style="text-align: left">
+                Dashboard
+            </h1>
+            <div class="columns" style="text-items: end">
+                <div class="column">
+                    <h1 class="title" style="text-align: left">
+                        Add new place
+                    </h1>
+                </div>
+                <div class="column is-narrow">
+                    <button class="button is-primary is-light" type="submit" name="add"><a
+                            href="{{ url_for('profile.profile') }}">Back</a></button>
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="columns">
+                    <div class="column is-5">
+
+                        <form action='' method="POST">
+                            <div class="field">
+                                <label class="label" style="text-align: start">Name</label>
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Place name" name="name" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" style="text-align: start">Country</label>
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Place name" name="country" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" style="text-align: start">Administration area</label>
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Admin name" name="admin" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" style="text-align: start">Latitude</label>
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="E.g. 40.714" name="lat" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" style="text-align: start">Longitude</label>
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="E.g. -74.006" name="lng" required>
+                                </div>
+                            </div>
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button class="button is-link">Submit</button>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-link is-light"><a href="{{ url_for('profile.profile') }}">Cancel</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

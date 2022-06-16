@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="columns">
+        <div class="column is-2">
+            {% block sidemenu %}
+                {% include 'menu.html' %}
+            {% endblock %}
+        </div>
+        <div class="column is-10">
+            <h1 class="title is-1" style="text-align: left">
+                Dashboard
+            </h1>
+            <div class="columns" style="text-items: end">
+                <div class="column">
+                    <h1 class="subtitle" style="text-align: left">
+                        My Places
+                    </h1>
+                </div>
+                <div class="column is-narrow">
+                    <form action="{{ url_for('profile.profile') }}" method="post">
+                        <button class="button is-primary is-light"  type="submit" name="add">Add +</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="columns">
+                    <div class="column is-full">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="notification is-{{ category }}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <table class="table is-hoverable is-fullwidth">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Country</th>
+                                <th><abbr title="Administration name">Admin</abbr></th>
+                                <th><abbr title="Coordinates">Coord</abbr></th>
+                                <th>Options</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in records %}
+                                <form action="{{ url_for('profile.profile') }}" method="post">
+                                    <tr>
+                                        <th>{{ item.id }}<input name="id" type="text" value="{{ item.id }}" hidden></th>
+                                        <td>{{ item.name }}<input name="city" type="text" value="{{ item.name }}"
+                                                                  hidden>
+                                        </td>
+                                        <td>{{ item.country }}</td>
+                                        <td>{{ item.admin_name }}</td>
+                                        <td><span name="lat">{{ item.lat }}</span>, <span
+                                                name="lng">{{ item.lng }}</span>
+                                        </td>
+                                        <td>
+                                            <button style="padding: 5px" class="button is-danger" type="submit"
+                                                    name="delete">
+                                                <i class="fa-solid fas fa-2x fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

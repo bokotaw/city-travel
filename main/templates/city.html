@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content">
+        <h1 class="title">{{ city.city }}</h1>
+        <div class="columns">
+            <div class="column is-4">
+                <img src="{{ city_img }}">
+                <button class="button is-info"><a href="{{ city_link }}" target="_blank">More info</a></button>
+            </div>
+            <div class="column" style="text-align: left">
+                {{ city_info }}
+            </div>
+        </div>
+        <h1 class="subtitle" style="text-align: left">
+            Nearest cities to {{ city.city }}
+        </h1>
+        <div class="columns">
+            {% for distance in distances %}
+                {% for city in result %}
+                    <div class="column is-4">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="https://bulma.io/images/placeholders/1280x960.png"
+                                         alt="Placeholder image">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <figure class="image is-48x48">
+                                            <i class="fa-solid fa-4x fa-city"></i>
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <input name="id" value="{{ city.id }}" hidden>
+                                        <p>{{ city.city }}</p>
+                                        <p>{{ city.country }}</p>
+                                        <p>Distance: {{ '%0.2f'| format(distance[loop.index - 1]) }} km</p>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <!--
+            {% for distance in distances %}
+                {% for city in result %}
+                    {{ city.city }}
+                    {{ distance[loop.index - 1] }}
+                {% endfor %}
+            {% endfor %}
+            -->
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="columns">
+        <div class="column is-full">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="notification is-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <table class="table is-hoverable is-fullwidth">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>ISO2</th>
+                    <th><abbr title="Administration name">Admin</abbr></th>
+                    <th>Population</th>
+                    <th><abbr title="Coordinates">Coord</abbr></th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for city in records.items %}
+                    <form action="{{ url_for('main.cities') }}" method="post">
+                        <tr>
+                            <th>{{ city.id }}<input name="id" type="text" value="{{ city.id }}" hidden></th>
+                            <td>{{ city.city }}<input name="city" type="text" value="{{ city.city }}" hidden></td>
+                            <td>{{ city.country }}</td>
+                            <td>{{ city.iso2 }}</td>
+                            <td>{{ city.admin_name }}</td>
+                            <td>{{ city.population }}</td>
+                            <td><span name="lat">{{ city.lat }}</span>, <span name="lng">{{ city.lng }}</span></td>
+                            <td>
+                                <button style="padding: 5px" class="button is-primary" type="submit" name="favorite">
+                                    <i class="fa-solid fas fa-2x fa-heart"></i>
+                                </button>
+                                <button style="padding: 5px" class="button is-success" type="submit" name="visited">
+                                    <i class="fa-solid fas fa-2x fa-check"></i>
+                                </button>
+                                <button style="padding: 5px" class="button is-info" type="submit"
+                                        name="info">
+                                    <i class="fa-solid fas fa-2x fa-circle-info"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <a href="{{ url_for('main.cities', page=records.prev_num) }}"
+                   class="pagination-previous
+       {% if records.page == 1 %}disabled{% endif %}">
+                    Previous
+                </a>
+                <a href="{{ url_for('main.cities', page=records.next_num) }}"
+                   class="pagination-next
+       {% if records.page == records.pages %}disabled{% endif %}">
+                    Next Page
+                </a>
+                <ul class="pagination-list">
+                    {% for page_num in records.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                        {% if page_num %}
+                            {% if records.page == page_num %}
+                                <li>
+                                    <a href="{{ url_for('main.cities', page=page_num) }}"
+                                       class="pagination-link is-current">
+                                        {{ page_num }}
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{{ url_for('main.cities', page=page_num) }}"
+                                       class="pagination-link">
+                                        {{ page_num }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <li><span class="pagination-ellipsis">&hellip;</span></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+        <h1>{{ l }}</h1>
+    </div>
+{% endblock %}

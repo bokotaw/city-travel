@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+            integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>City Travel</title>
+</head>
+<body>
+<section class="hero is-primary is-fullheight">
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="{{ url_for('main.index') }}" class="navbar-item">
+                            <i class="fa-solid fa-house"
+                               style="margin-right: 3px"></i>
+                            Home
+                        </a>
+                        <a href="{{ url_for('main.cities') }}" class="navbar-item">
+                            <i class="fa-solid fa-city"
+                               style="margin-right: 3px"></i>
+                            Cities
+                        </a>
+                        <a href="{{ url_for('main.map_page') }}" class="navbar-item">
+                            <i class="fa-solid fa-map-location"
+                               style="margin-right: 3px"></i>
+                            Map
+                        </a>
+                    </div>
+                    <div class="navbar-end">
+                        {% if not current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                                <i class="fa-solid fa-arrow-right-to-bracket"
+                                   style="margin-right: 3px"></i>
+                                Login
+                            </a>
+                            <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                                <i class="fa-solid fa-user-plus"
+                                   style="margin-right: 3px"></i>
+                                Sign Up
+                            </a>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('profile.profile') }}" class="navbar-item">
+                                <i class="fa-solid fa-user"
+                                   style="margin-right: 3px"></i>
+                                Profile
+                            </a>
+                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                                <i class="fa-solid fa-arrow-right-from-bracket"
+                                   style="margin-right: 3px"></i>
+                                Logout
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="hero-body" style="align-items: flex-start !important; ">
+        <div class="container has-text-centered is-widescreen">
+
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>
