@@ -17,7 +17,7 @@ def profile():
     current_user_id = current_user.id
     records = db.session.query(MyPlaces).filter(MyPlaces.user_id == current_user_id).all()
     if len(records) == 0:
-        flash("You don't have your places, you can add them by selecting 'Add +' option", 'info')
+        flash("You don't have Your places, you can add them by selecting 'Add +' option", 'info')
     return render_template('profile.html', records=records)
 
 
