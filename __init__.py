@@ -33,4 +33,3 @@ def create_app():
     app.register_blueprint(profile_blueprints)
 
     return app
-app = create_app()
